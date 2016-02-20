@@ -83,4 +83,23 @@ class ConditionalProcessTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($process->execute($output));
     }
+
+    public function testSetGetTimeout()
+    {
+        $timeout = 42;
+
+        $process = new ConditionalProcess('');
+
+        $process->setTimeout($timeout);
+        $this->assertEquals($timeout, $process->getTimeout());
+    }
+
+    public function testGetDefaultTimeout()
+    {
+        $expected = 60;
+
+        $process = new ConditionalProcess('');
+
+        $this->assertEquals($expected, $process->getTimeout());
+    }
 }
