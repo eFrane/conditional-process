@@ -7,6 +7,7 @@ class ConditionalProcess
 {
     protected $cmd = '';
     protected $condition = null;
+    protected $timeout = 60;
 
     public function __construct($cmd, callable $condition = null)
     {
@@ -27,6 +28,16 @@ class ConditionalProcess
         return $this->condition;
     }
 
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+    }
+
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
     /**
      * @param $output string|false
      * @return bool
@@ -39,6 +50,7 @@ class ConditionalProcess
         }
 
         $process = new Process($this->cmd);
+        $process->setTimeout($this->timeout);
 
         // NOTE: determine if keeping the return value might be useful
         $process->start();
